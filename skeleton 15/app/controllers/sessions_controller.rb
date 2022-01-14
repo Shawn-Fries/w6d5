@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+    before_action :require_logged_out, only: [:new, :create]
+
+
     def new
         @user = User.new
         render :new
@@ -16,6 +19,6 @@ class SessionsController < ApplicationController
 
     def destroy
         current_user.reset_session_token! if current_user # reset token
-        params[:session][:session_token] = nil # session_token to nil = blank it
+        session[:session_token] = nil # session_token to nil = blank it
     end
 end
