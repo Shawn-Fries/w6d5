@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
         User.find_by(params[:session_token])
     end
 
+    def login_user!(user)
+        session[:session_token] = user.reset_session_token!
+    end
+
 end
