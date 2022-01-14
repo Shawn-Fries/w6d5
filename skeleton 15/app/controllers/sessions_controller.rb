@@ -13,4 +13,9 @@ class SessionsController < ApplicationController
             render json: @user.errors.full_messages, status: 422
         end
     end
+
+    def destroy
+        current_user.reset_session_token! if current_user # reset token
+        params[:session][:session_token] = nil # session_token to nil = blank it
+    end
 end
